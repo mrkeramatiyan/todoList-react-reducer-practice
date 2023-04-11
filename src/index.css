@@ -1,0 +1,17 @@
+body {
+    background: rgb(55, 70, 175);
+    background: no-repeat
+      linear-gradient(
+        0deg,
+        rgba(55, 70, 175, 1) 0%,
+        rgba(55, 70, 175, 1) 50%,
+        rgba(67, 88, 255, 1) 50%,
+        rgba(67, 88, 255, 1) 100%
+      );
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }

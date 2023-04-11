@@ -1,0 +1,149 @@
+.todo-list-container {
+  min-height: 30vh;
+  width: 40vw;
+  position: relative;
+  transform: translateY();
+  border-radius: 15px;
+
+  hr {
+    margin: 0;
+    border: 1px solid #e9e9e9;
+  }
+
+  h1 {
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin: 0;
+  }
+  .todo-header {
+    background-color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    line-height: 30px;
+
+    input {
+      border: none;
+      width: 90%;
+      font-size: 20px;
+
+      &:active,
+      &:focus {
+        border: none !important;
+      }
+    }
+
+    button {
+      background-color: #3746af;
+      color: #fff;
+      border: none;
+      border-radius: 100%;
+      padding: 10px 15px;
+    }
+  }
+
+  .todo-badgs {
+    background-color: #fff;
+    padding: 10px 20px;
+    font-size: 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+
+    span {
+      display: inline-block;
+      padding: 5px 10px;
+      color: #fff;
+      font-weight: bolder;
+      border-radius: 3px;
+    }
+
+    .pink {
+      background-color: #f33a6d;
+    }
+    .blue {
+      background-color: #00a8f7;
+    }
+    .green {
+      background-color: #25b499;
+    }
+  }
+
+  .todo-list {
+    background-color: #fff;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .list-item {
+      display: flex;
+      line-height: 30px;
+      padding: 10px 20px;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 2px solid #e9e9e9;
+      &:first-child {
+        border: none;
+      }
+
+      button {
+        background-color: transparent !important;
+        border: 1px solid #fff;
+        font-size: 20px;
+        color: #cacaca;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out 0s;
+
+        &:hover {
+          color: #000;
+        }
+      }
+
+      .wrapper-input {
+        width: 90%;
+
+        label {
+          font-size: 20px;
+          padding: 0 15px;
+          &.checked {
+            text-decoration: line-through;
+          }
+        }
+      }
+
+      .wrapper-button {
+        width: 10%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        gap: 10px;
+      }
+    }
+  }
+
+  .todo-footer {
+    background-color: #fff;
+    border: none;
+
+    button {
+      display: block;
+      width: 100%;
+      line-height: 50px;
+      font-size: 20px;
+      background-color: #fff;
+      border: none;
+      color: #000;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out 0s;
+
+      &:disabled {
+        color: #cacaca;
+      }
+    }
+  }
+}
