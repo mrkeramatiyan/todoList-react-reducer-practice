@@ -1,72 +1,35 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { TodoContext } from "../todo.context";
 
-const TodoItem = ({ todo, todoList, setTodoList }) => {
+const TodoItem = ({ todo }) => {
   const { id, label, complete, isEditable } = todo;
+
+  const {
+    removeTaskFromTodoList,
+    toggleEditableTaskInTodoList,
+    toggleTaskCompleteCheck,
+    changeLabelAndUpdateTodoList,
+  } = useContext(TodoContext);
 
   const [newLabel, setnewLabel] = useState(label);
 
-  const onChangeCheckHandler = (event) => {
-    const todoId = event.target.getAttribute("todo-id");
+  const onChangeCheckHandler = () => toggleTaskCompleteCheck(id);
 
-    const updateTodoList = todoList.map((todo) => {
-      if (todo.id == todoId) {
-        return {
-          ...todo,
-          complete: !todo.complete,
-        };
-      } else {
-        return todo;
-      }
-    });
-    setTodoList([...updateTodoList]);
-  };
-
-  const onEditHandler = (event) => {
-    const newTodoList = todoList.map((todo) => {
-      if (todo.id == id) {
-        return {
-          ...todo,
-          isEditable: true,
-        };
-      } else {
-        return todo;
-      }
-    });
-
-    setTodoList([...newTodoList]);
-  };
+  const onEditHandler = () => toggleEditableTaskInTodoList(id);
 
   const onChangeInputHandler = (event) => setnewLabel(event.target.value);
-
-  const makeNewTodoListHelper = (newLabel) => {
-    const newTodoList = todoList.map((todo) => {
-      if (todo.id == id) {
-        return {
-          ...todo,
-          label: newLabel || label,
-          isEditable: false,
-        };
-      } else {
-        return todo;
-      }
-    });
-
-    setTodoList(newTodoList);
-  };
 
   const onKeyDownHandler = (event) => {
     const key = event.key;
     if (key == "Enter") {
-      makeNewTodoListHelper(newLabel);
-    } else if (key == "Escape") {
-      makeNewTodoListHelper();
+      changeLabelAndUpdateTodoList(id, newLabel);
+    }
+    else if (key == "Escape") {
+      changeLabelAndUpdateTodoList(id);
     }
   };
 
-  const onRemoveHandler = () => {
-    const newTodoList = todoList.filter((todo) => todo.id != id);
-    setTodoList(newTodoList);
-  };
+  const onRemoveHandler = () => removeTaskFromTodoList(id);
 
   return (
     <li className="list-item">
@@ -74,7 +37,6 @@ const TodoItem = ({ todo, todoList, setTodoList }) => {
         <input
           type="checkbox"
           id={`label${id}`}
-          todo-id={id}
           onChange={onChangeCheckHandler}
           checked={complete}
         />
@@ -87,7 +49,7 @@ const TodoItem = ({ todo, todoList, setTodoList }) => {
             onKeyDown={onKeyDownHandler}
           />
         ) : (
-          <label htmlFor={`label${id}`} className={complete ? " checked" : ""}>
+          <label htmlFor={`label${id}`} className={complete ? "checked" : ""}>
             {label}
           </label>
         )}

@@ -1,9 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./App.scss";
 import TodoItem from "./components/todo.-item.component";
+import { TodoContext } from "./todo.context";
 
 function App() {
-  const [todoList, setTodoList] = useState([]);
+  const {
+    todoList,
+    completeTasks,
+    incompleteTasks,
+    totalTasks,
+    addTaskToTodoList,
+    clearAllcompleteTasks,
+  } = useContext(TodoContext);
+
   const [label, setLabel] = useState("");
   const [checkClearAll, setCheckClearAll] = useState(true);
 
@@ -25,16 +34,8 @@ function App() {
   const onClickHandler = () => {
     if (label.length > 0) {
       const id = todoList.length + 1;
-      setTodoList([
-        ...todoList,
-        {
-          id,
-          label,
-          complete: false,
-          isEditable: false,
-        },
-      ]);
 
+      addTaskToTodoList(id, label);
       setLabel("");
     }
   };
@@ -46,11 +47,7 @@ function App() {
   };
 
   const onClearAllHander = () => {
-    const todoListIncompelete = todoList.filter(
-      (todo) => todo.complete != true
-    );
-    setTodoList([...todoListIncompelete]);
-    setCheckClearAll(true);
+    clearAllcompleteTasks();
   };
 
   return (
@@ -69,9 +66,9 @@ function App() {
         </div>
         <hr />
         <div className="todo-badgs">
-          <span className="blue">All Tasks : 3</span>
-          <span className="pink">Incomplete : 1</span>
-          <span className="green">Complete : 3</span>
+          <span className="blue">All Tasks : {totalTasks}</span>
+          <span className="pink">Incomplete : {incompleteTasks}</span>
+          <span className="green">Complete : {completeTasks}</span>
         </div>
         <hr />
         <ul className="todo-list">
@@ -80,10 +77,6 @@ function App() {
               <TodoItem
                 key={todo.id}
                 todo={todo}
-                todoList={todoList}
-                setTodoList={setTodoList}
-                setCheckClearAll={setCheckClearAll}
-                checkClearAll={checkClearAll}
               />
             ))}
         </ul>
